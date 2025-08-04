@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { Role } from "../zod/user.zod";
+import { Role } from "../generated/prisma";
 
 export interface AuthRequest extends Request {
 	role?: Role;

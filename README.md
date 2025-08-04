@@ -1,209 +1,145 @@
 ![Logo](assets/images/logo.png)
 
-# 1BIS MSA Auth Service
+# 1BIS - All-in-One Business Solution
 
-A robust authentication and authorization microservice built with Node.js, TypeScript, and Prisma. This service provides secure user authentication, JWT token management, and role-based access control for the 1BIS platform.
+1BIS is a comprehensive business management platform designed to streamline operations for hospitality businesses. Our integrated solution combines multiple essential business functions into a single, powerful system.
 
-## 🚀 Features
+#### Core Objectives
 
-### 🔐 Authentication
+- Transform hospitality business operations through digital integration
+- Provide a seamless, user-friendly experience for both staff and management
+- Enable complete control over business operations and customer relationships
+- Streamline administrative tasks and enhance operational efficiency
 
-- **JWT Token Management**: Secure token generation and validation
-- **Password Security**: Argon2 hashing for enhanced security
-- **Session Management**: Cookie-based session handling
-- **Multi-factor Authentication**: Ready for 2FA implementation
+## Key Features
 
-### 👥 User Management
+### Frontend Operations
 
-- **User Registration**: Secure user account creation
-- **Profile Management**: Complete user profile CRUD operations
-- **Account Verification**: Email verification system
-- **Password Reset**: Secure password recovery flow
+### 🏨 Property Management
 
-### 🛡️ Authorization
+- 📝 Room and inventory management
+- 🔄 Real-time availability tracking
+- 📊 Occupancy analytics
+- 🗓️ Booking and reservation system
 
-- **Role-Based Access Control (RBAC)**: Granular permission system
-- **Permission Management**: Fine-grained access control
-- **Token Validation**: Middleware for protected routes
-- **API Security**: CORS and security headers
+### 👥 Customer Management
+
+- 👤 Guest profile management
+- 📱 Customer communication tools
+- 💳 Payment processing
+- 📊 Customer feedback system
+
+### 🍽️ Service Management
+
+- 🍳 Restaurant and dining management
+- 🎯 Event planning and coordination
+- 🧹 Housekeeping management
+- 🚗 Transportation services
+
+### Administrative
 
 ### 📊 Business Intelligence
 
-- **User Analytics**: Authentication metrics and insights
-- **Security Monitoring**: Failed login attempts tracking
-- **Audit Logging**: Complete authentication audit trail
-- **Performance Metrics**: Response time monitoring
+- 📈 Performance analytics
+- 💰 Financial reporting
+- 📊 Revenue management
+- 📉 Cost analysis
 
-## 🏗️ Architecture
+### 👥 Staff Management
 
-### Microservice Design
+- 👤 Employee scheduling
+- 📋 Task management
+- 📊 Performance tracking
+- 💼 HR management
 
-- **Stateless Service**: Horizontal scaling capability
-- **API Gateway Ready**: Designed for gateway integration
-- **Database Agnostic**: MongoDB with Prisma ORM
-- **Containerized**: Docker-ready deployment
+### 🔄 Operations Management
 
-### Security Features
+- 📦 Inventory control
+- 🏷️ Pricing management
+- 📋 Quality control
+- 🔍 Compliance monitoring
 
-- **HTTPS Ready**: SSL/TLS support
-- **Rate Limiting**: Protection against brute force attacks
-- **Input Validation**: Zod schema validation
-- **SQL Injection Protection**: Prisma ORM security
+## Author
 
-## 🛠️ Tech Stack
+- [1BIS Solutions](https://github.com/1BIS-solutions)
 
-### Backend
+## Tech Stack
 
-- **Runtime**: Node.js 20
-- **Language**: TypeScript
-- **Framework**: Express.js 5
-- **ORM**: Prisma 6
-- **Database**: MongoDB 7
+**Client:** React
 
-### Security
+**Server:** Node, Express
 
-- **Authentication**: JWT + Argon2
-- **Validation**: Zod schemas
-- **File Upload**: Multer + Cloudinary
-- **Logging**: Winston + Better Stack
+**ORM:** Prisma
 
-### Development
+**Database:** MongoDB
 
-- **Build Tool**: Webpack 5
-- **Linting**: ESLint
-- **Testing**: Mocha + Chai
-- **Hot Reload**: Nodemon
+## Run Locally
 
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Node.js 20+
-- MongoDB 7+
-- Docker (optional)
-
-### Local Development
-
-1. **Clone the repository**
+Clone the project
 
 ```bash
-git clone https://github.com/1BIS-solutions/1BIS-api.git
-cd 1BIS-api
+  git clone https://github.com/1BIS-solutions/1BIS-api.git
 ```
 
-2. **Install dependencies**
+Go to the project directory
 
 ```bash
-npm install
+  cd 1BIS-api
 ```
 
-3. **Set up environment variables**
+Install dependencies
 
 ```bash
-cp .env.example .env
-# Edit .env with your configuration
+  npm install
 ```
 
-4. **Generate Prisma client**
+Spinup the server
 
 ```bash
-npm run prisma-generate
+  npm run dev
 ```
 
-5. **Start development server**
+## Running Test
+
+To run tests, run the command
 
 ```bash
-npm run dev
+  npm run test
 ```
 
-### Docker Deployment
+## Running Lint
 
-1. **Build and run with Docker**
+To run lint, run the command
 
 ```bash
-# Production mode
-docker-compose up --build
-
-# Development mode with hot reload
-docker-compose --profile dev up --build
-
-# With local database
-docker-compose --profile dev --profile local-db up --build
+  npm run lint
 ```
 
-2. **Access the API**
+## Git Branching
 
-- **Health Check**: `GET http://localhost:3000/api/health`
-- **API Documentation**: Available at `/api/docs`
-
-### Metrics
-
-- **Response Times**: API performance monitoring
-- **Error Rates**: Failed authentication tracking
-- **User Activity**: Login/logout patterns
-
-## 🔒 Security
-
-### Authentication Security
-
-- **Password Hashing**: Argon2 with salt
-- **JWT Security**: Secure token generation and validation
-- **Session Management**: Secure cookie handling
-- **Rate Limiting**: Protection against brute force
-
-### API Security
-
-- **CORS Configuration**: Cross-origin request handling
-- **Input Validation**: Zod schema validation
-- **SQL Injection Protection**: Prisma ORM
-- **XSS Protection**: Content Security Policy
-
-### Infrastructure Security
-
-- **Non-root User**: Docker container security
-- **Resource Limits**: Memory and CPU constraints
-- **Network Isolation**: Docker network segmentation
-- **Secrets Management**: Environment variable security
-
-## 🚀 Deployment
-
-### Production Deployment
-
-```bash
-# Build production image
-docker-compose build app
-
-# Deploy with environment variables
-docker-compose up -d app
-
-# Monitor deployment
-docker-compose logs -f app
+```mermaid
+gitGraph
+    commit id:"Initial commit"
+    branch staging
+    checkout staging
+    commit id:"Staging initial commit"
+    branch develop
+    checkout develop
+    commit id:"Develop initial commit"
+    branch feature/api-1
+    commit id:"Commit 1"
+    commit id:"Commit 2"
+    checkout develop
+    merge feature/api-1 id:"Trigger Internal Build 1.0.1"
+    branch feature/api-2
+    commit id:"Commit 1"
+    commit id:"Commit 2"
+    checkout develop
+    merge feature/api-2 id:"Trigger Internal Build 1.0.2"
+    checkout staging
+    merge develop id:"Trigger Staging Build 1.0.1"
+    checkout main
+    merge staging id:"Trigger Prod Build 1.0.0"
 ```
 
-### Environment-Specific Configs
-
-- **Development**: Hot reload, debug logging
-- **Staging**: Production-like with monitoring
-- **Production**: Optimized build, security hardening
-
-## 🤝 Contributing
-
-### Development Workflow
-
-1. Fork the repository
-2. Create feature branch: `git checkout -b feature/auth-enhancement`
-3. Make changes and test
-4. Commit changes: `git commit -m 'Add new auth feature'`
-5. Push to branch: `git push origin feature/auth-enhancement`
-6. Create Pull Request
-
-
-## 📝 License
-
-This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Team
-
-- **1BIS Solutions** - [GitHub](https://github.com/1BIS-solutions)
-
-**Built with ❤️ by the 1BIS Team**
+## API Reference

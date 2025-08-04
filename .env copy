@@ -1,0 +1,24 @@
+# Server Configuration
+PORT=3000
+NODE_ENV=development
+
+# Database
+DATABASE_URL="mongodb+srv://zhenobn:R4vsSvt1uE6V09VI@dev.weabx1k.mongodb.net/dev?retryWrites=true&w=majority&appName=dev"
+
+# JWT Secret
+JWT_SECRET=SECRETJWT
+
+# CORS Configuration
+# Comma-separated list of allowed origins
+CORS_ORIGINS="http://localhost:3000,http://localhost:5173,http://localhost:3001,http://localhost:4173"
+# Whether to allow credentials (cookies) in CORS requests
+CORS_CREDENTIALS=true
+
+# Logging (Optional)
+BETTER_STACK_SOURCE_TOKEN=""
+BETTER_STACK_HOST=""httpOnly
+
+# Cloudinary Configuration
+CLOUDINARY_CLOUD_NAME="dmhxygxg9"
+CLOUDINARY_API_KEY="931468895664244"
+CLOUDINARY_API_SECRET="3VlK6uVQorOQb01vwndHNSlAa-8"

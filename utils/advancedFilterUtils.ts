@@ -45,7 +45,31 @@ export const DEFAULT_MODEL_CONFIGS: ModelFilterConfig = {
 		numberFields: [],
 		jsonFields: ["metadata"],
 	},
-
+	facility: {
+		exactMatchFields: [
+			"id",
+			"facilityTypeId",
+			"locationId",
+			"organizationId",
+			"isDeleted",
+			"isTimeBased",
+		],
+		textSearchFields: ["name", "description"],
+		dateFields: ["createdAt", "updatedAt"],
+		arrayFields: ["amenities"],
+		booleanFields: ["isDeleted", "isTimeBased"],
+		numberFields: ["capacity"],
+		jsonFields: ["metadata"],
+	},
+	facilityType: {
+		exactMatchFields: ["id", "category", "organizationId", "rateTypeId", "isDeleted"],
+		textSearchFields: ["name", "code", "description"],
+		dateFields: ["createdAt", "updatedAt"],
+		arrayFields: ["imageUrl", "amenities", "roomFeatures"],
+		booleanFields: ["isDeleted"],
+		numberFields: ["price", "maxOccupancy"],
+		jsonFields: ["metadata"],
+	},
 	organization: {
 		exactMatchFields: ["id", "isDeleted"],
 		textSearchFields: ["name", "description", "address"],
@@ -73,6 +97,22 @@ export const DEFAULT_MODEL_CONFIGS: ModelFilterConfig = {
 		numberFields: [],
 		jsonFields: ["personalInfo", "contactInfo", "identification"],
 	},
+	reservation: {
+		exactMatchFields: ["id", "status", "facilityId", "userId", "isDeleted"],
+		textSearchFields: ["notes"],
+		dateFields: [
+			"createdAt",
+			"updatedAt",
+			"reservationDate",
+			"reservationEndDate",
+			"checkInDate",
+			"checkOutDate",
+		],
+		arrayFields: [],
+		booleanFields: ["isDeleted"],
+		numberFields: ["guests", "totalPrice"],
+		jsonFields: ["metadata"],
+	},
 	role: {
 		exactMatchFields: ["id", "isDeleted"],
 		textSearchFields: ["name", "description"],
@@ -80,6 +120,23 @@ export const DEFAULT_MODEL_CONFIGS: ModelFilterConfig = {
 		arrayFields: ["permissions"],
 		booleanFields: ["isDeleted"],
 		numberFields: [],
+		jsonFields: ["metadata"],
+	},
+	transaction: {
+		exactMatchFields: [
+			"id",
+			"type",
+			"status",
+			"facilityId",
+			"userId",
+			"reservationId",
+			"isDeleted",
+		],
+		textSearchFields: ["description", "reference"],
+		dateFields: ["createdAt", "updatedAt", "transactionDate"],
+		arrayFields: [],
+		booleanFields: ["isDeleted"],
+		numberFields: ["amount"],
 		jsonFields: ["metadata"],
 	},
 	location: {
@@ -95,14 +152,19 @@ export const DEFAULT_MODEL_CONFIGS: ModelFilterConfig = {
 
 // Default relation configurations
 export const DEFAULT_RELATION_CONFIGS: RelationConfig = {
+	facilityType: { type: "many-to-one", model: "facilityType" },
 	organization: { type: "many-to-one", model: "organization" },
 	user: { type: "many-to-one", model: "user" },
 	person: { type: "many-to-one", model: "person" },
 	role: { type: "many-to-one", model: "role" },
+	facility: { type: "many-to-one", model: "facility" },
 	location: { type: "many-to-one", model: "location" },
 	app: { type: "many-to-one", model: "app" },
 	modules: { type: "one-to-many", model: "module" },
+	reservations: { type: "one-to-many", model: "reservation" },
+	transactions: { type: "one-to-many", model: "transaction" },
 	users: { type: "one-to-many", model: "user" },
+	facilities: { type: "one-to-many", model: "facility" },
 	locations: { type: "one-to-many", model: "location" },
 };
 

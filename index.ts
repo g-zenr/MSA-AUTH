@@ -3,10 +3,10 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
+import swaggerUi from "swagger-ui-express";
 import { PrismaClient } from "./generated/prisma";
 import { config } from "./config/config";
-
+import openApiSpecs from "./docs/openApiSpecs";
 import verifyToken from "./middleware/verifyToken";
 import { connectDb } from "./config/database";
 
@@ -27,20 +27,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 	(req as any).io = io;
 	next();
 });
-
-// Health check endpoint
-app.get("/api/health", (req: Request, res: Response) => {
-	res.status(200).json({
-		status: "healthy",
-		timestamp: new Date().toISOString(),
-		uptime: process.uptime(),
-		environment: process.env.NODE_ENV || "development",
-	});
-});
-
 const auth = require("./app/auth")(prisma);
 const user = require("./app/user")(prisma);
 const person = require("./app/person")(prisma);
+const images = require("./app/images")(prisma);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -52,6 +43,11 @@ app.use(
 		credentials: config.cors.credentials,
 	}),
 );
+
+// Set up routes that don't need authentication
+if (process.env.NODE_ENV !== "production") {
+	app.use(`${config.baseApiPath}/docs`, swaggerUi.serve, swaggerUi.setup(openApiSpecs()));
+}
 
 // Set up routes that don't need authentication
 app.use(config.baseApiPath, auth);
@@ -74,6 +70,7 @@ app.use(config.baseApiPath, (req: Request, res: Response, next: NextFunction) =>
 
 app.use(config.baseApiPath, user);
 app.use(config.baseApiPath, person);
+app.use(`${config.baseApiPath}/images`, images);
 
 server.listen(config.port, async () => {
 	await connectDb();

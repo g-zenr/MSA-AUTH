@@ -6,7 +6,7 @@ import {
 	deleteImage,
 	deleteMultipleImages,
 	getTransformedImageUrl,
-} from "../../helper/cloudinaryHelper";
+} from "../../helper/cloudinary";
 import { UploadApiResponse } from "cloudinary";
 import { config } from "../../config/constant";
 

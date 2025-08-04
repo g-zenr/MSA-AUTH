@@ -1,0 +1,1017 @@
+{
+	"facilityTypesByCategory": {
+		"HOTEL": {
+			"categoryInfo": {
+				"name": "Hotel Accommodations",
+				"description": "Guest rooms and accommodation facilities",
+				"basePrice": 100.0,
+				"priceRange": {
+					"min": 50.0,
+					"max": 1000.0
+				}
+			},
+			"requiredFields": [
+				"name",
+				"category",
+				"organizationId",
+				"metadata.bedType",
+				"metadata.bedCount",
+				"metadata.maxOccupancy"
+			],
+			"optionalFields": [
+				"description",
+				"code",
+				"price",
+				"rateTypeId",
+				"imageUrl",
+				"metadata.amenities",
+				"metadata.roomFeatures"
+			],
+			"zodSchema": {
+				"metadata": {
+					"bedType": {
+						"type": "enum",
+						"values": [
+							"SINGLE_BED",
+							"DOUBLE_BED",
+							"QUEEN_BED",
+							"KING_BED",
+							"TWIN_BED",
+							"BUNK_BED",
+							"SOFA_BED",
+							"MURPHY_BED",
+							"DAYBED",
+							"FUTON"
+						],
+						"required": true
+					},
+					"bedCount": {
+						"type": "number",
+						"min": 1,
+						"required": true,
+						"description": "Number of beds in the room"
+					},
+					"maxOccupancy": {
+						"type": "number",
+						"min": 1,
+						"required": true,
+						"description": "Maximum number of guests"
+					},
+					"amenities": {
+						"type": "array",
+						"items": {
+							"type": "enum",
+							"values": [
+								"CONCIERGE_SERVICE",
+								"ROOM_SERVICE",
+								"LAUNDRY_SERVICE",
+								"DRY_CLEANING",
+								"VALET_PARKING",
+								"SPA_SERVICES",
+								"MASSAGE_SERVICES",
+								"COMPLIMENTARY_BREAKFAST",
+								"MINIBAR",
+								"COFFEE_SHOP"
+							]
+						},
+						"required": false,
+						"default": []
+					},
+					"roomFeatures": {
+						"type": "array",
+						"items": {
+							"type": "enum",
+							"values": [
+								"AIR_CONDITIONING",
+								"HEATING",
+								"WIFI",
+								"TELEVISION",
+								"MINIBAR",
+								"SAFE",
+								"BALCONY",
+								"TERRACE",
+								"KITCHEN",
+								"KITCHENETTE",
+								"BATHROOM",
+								"PRIVATE_BATHROOM",
+								"JACUZZI",
+								"BATHTUB",
+								"SHOWER",
+								"OCEAN_VIEW",
+								"MOUNTAIN_VIEW",
+								"GARDEN_VIEW",
+								"CITY_VIEW"
+							]
+						},
+						"required": false,
+						"default": []
+					}
+				}
+			},
+			"validationRules": {
+				"metadata.bedCount": "Must be between 1 and 10",
+				"metadata.maxOccupancy": "Must be between 1 and 20",
+				"price": "Must be between 50 and 1000 for hotel rooms"
+			},
+			"examples": [
+				{
+					"name": "Deluxe Ocean Suite",
+					"description": "Luxurious suite with panoramic ocean views",
+					"code": "HOTEL_DELUXE_001",
+					"category": "HOTEL",
+					"organizationId": "68412c97c0c093fb4f0b0a11",
+					"price": 299.99,
+					"metadata": {
+						"bedType": "KING_BED",
+						"bedCount": 1,
+						"maxOccupancy": 2,
+						"amenities": ["ROOM_SERVICE", "CONCIERGE_SERVICE", "SPA_SERVICES"],
+						"roomFeatures": [
+							"WIFI",
+							"TELEVISION",
+							"MINIBAR",
+							"SAFE",
+							"BALCONY",
+							"JACUZZI",
+							"OCEAN_VIEW"
+						]
+					}
+				},
+				{
+					"name": "Family Twin Room",
+					"description": "Comfortable room for families with twin beds",
+					"code": "HOTEL_FAMILY_001",
+					"category": "HOTEL",
+					"organizationId": "68412c97c0c093fb4f0b0a11",
+					"price": 189.99,
+					"metadata": {
+						"bedType": "TWIN_BED",
+						"bedCount": 2,
+						"maxOccupancy": 4,
+						"amenities": ["COMPLIMENTARY_BREAKFAST", "LAUNDRY_SERVICE"],
+						"roomFeatures": [
+							"WIFI",
+							"TELEVISION",
+							"AIR_CONDITIONING",
+							"PRIVATE_BATHROOM"
+						]
+					}
+				}
+			]
+		},
+		"GYM": {
+			"categoryInfo": {
+				"name": "Fitness Facilities",
+				"description": "Exercise and fitness equipment spaces",
+				"basePrice": 25.0,
+				"priceRange": {
+					"min": 10.0,
+					"max": 100.0
+				}
+			},
+			"requiredFields": ["name", "category", "organizationId", "metadata.capacity"],
+			"optionalFields": [
+				"description",
+				"code",
+				"price",
+				"rateTypeId",
+				"imageUrl",
+				"metadata.equipment",
+				"metadata.hasTrainer",
+				"metadata.openingHours",
+				"metadata.specialtyArea"
+			],
+			"zodSchema": {
+				"metadata": {
+					"equipment": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"required": false,
+						"default": [],
+						"description": "List of available gym equipment"
+					},
+					"hasTrainer": {
+						"type": "boolean",
+						"required": false,
+						"default": false,
+						"description": "Whether personal trainer is available"
+					},
+					"openingHours": {
+						"type": "string",
+						"required": false,
+						"description": "Operating hours (e.g., '6:00 AM - 10:00 PM')"
+					},
+					"capacity": {
+						"type": "number",
+						"min": 1,
+						"required": true,
+						"description": "Maximum number of people"
+					},
+					"specialtyArea": {
+						"type": "string",
+						"required": false,
+						"description": "Specialty focus area (e.g., 'Cardio', 'Weights', 'Yoga')"
+					}
+				}
+			},
+			"validationRules": {
+				"metadata.capacity": "Must be between 1 and 200",
+				"price": "Must be between 10 and 100 for gym facilities"
+			},
+			"examples": [
+				{
+					"name": "Premium Fitness Center",
+					"description": "State-of-the-art fitness facility with modern equipment",
+					"code": "GYM_PREMIUM_001",
+					"category": "GYM",
+					"organizationId": "68412c97c0c093fb4f0b0a11",
+					"price": 45.0,
+					"metadata": {
+						"equipment": [
+							"Treadmills",
+							"Elliptical Machines",
+							"Weight Machines",
+							"Free Weights"
+						],
+						"hasTrainer": true,
+						"openingHours": "5:00 AM - 11:00 PM",
+						"capacity": 50,
+						"specialtyArea": "Cardio and Strength Training"
+					}
+				},
+				{
+					"name": "Yoga Studio",
+					"description": "Peaceful yoga and meditation space",
+					"code": "GYM_YOGA_001",
+					"category": "GYM",
+					"organizationId": "68412c97c0c093fb4f0b0a11",
+					"price": 25.0,
+					"metadata": {
+						"equipment": ["Yoga Mats", "Blocks", "Straps", "Meditation Cushions"],
+						"hasTrainer": true,
+						"openingHours": "6:00 AM - 9:00 PM",
+						"capacity": 20,
+						"specialtyArea": "Yoga and Meditation"
+					}
+				}
+			]
+		},
+		"RESTAURANT": {
+			"categoryInfo": {
+				"name": "Dining Facilities",
+				"description": "Food service and dining establishments",
+				"basePrice": 50.0,
+				"priceRange": {
+					"min": 20.0,
+					"max": 200.0
+				}
+			},
+			"requiredFields": ["name", "category", "organizationId", "metadata.seatingCapacity"],
+			"optionalFields": [
+				"description",
+				"code",
+				"price",
+				"rateTypeId",
+				"imageUrl",
+				"metadata.cuisineType",
+				"metadata.hasDelivery",
+				"metadata.hasTakeout",
+				"metadata.openingHours",
+				"metadata.menuUrl",
+				"metadata.avgMealPrice"
+			],
+			"zodSchema": {
+				"metadata": {
+					"cuisineType": {
+						"type": "string",
+						"required": false,
+						"description": "Type of cuisine served"
+					},
+					"seatingCapacity": {
+						"type": "number",
+						"min": 1,
+						"required": true,
+						"description": "Number of seats available"
+					},
+					"hasDelivery": {
+						"type": "boolean",
+						"required": false,
+						"default": false
+					},
+					"hasTakeout": {
+						"type": "boolean",
+						"required": false,
+						"default": false
+					},
+					"openingHours": {
+						"type": "string",
+						"required": false,
+						"description": "Restaurant operating hours"
+					},
+					"menuUrl": {
+						"type": "string",
+						"format": "url",
+						"required": false,
+						"description": "URL to online menu"
+					},
+					"avgMealPrice": {
+						"type": "number",
+						"min": 0,
+						"required": false,
+						"description": "Average price per meal"
+					}
+				}
+			},
+			"validationRules": {
+				"metadata.seatingCapacity": "Must be between 1 and 500",
+				"metadata.avgMealPrice": "Must be between 5 and 500",
+				"price": "Must be between 20 and 200 for restaurant reservations"
+			},
+			"examples": [
+				{
+					"name": "Mediterranean Bistro",
+					"description": "Authentic Mediterranean cuisine with fresh ingredients",
+					"code": "REST_MED_001",
+					"category": "RESTAURANT",
+					"organizationId": "68412c97c0c093fb4f0b0a11",
+					"price": 75.0,
+					"metadata": {
+						"cuisineType": "Mediterranean",
+						"seatingCapacity": 80,
+						"hasDelivery": false,
+						"hasTakeout": true,
+						"openingHours": "11:00 AM - 10:00 PM",
+						"menuUrl": "https://example.com/mediterranean-menu",
+						"avgMealPrice": 45.5
+					}
+				},
+				{
+					"name": "Rooftop Bar & Grill",
+					"description": "Casual dining with city views",
+					"code": "REST_ROOF_001",
+					"category": "RESTAURANT",
+					"organizationId": "68412c97c0c093fb4f0b0a11",
+					"price": 55.0,
+					"metadata": {
+						"cuisineType": "American Grill",
+						"seatingCapacity": 120,
+						"hasDelivery": true,
+						"hasTakeout": true,
+						"openingHours": "4:00 PM - 12:00 AM",
+						"avgMealPrice": 35.0
+					}
+				}
+			]
+		},
+		"SPORTS_COURT": {
+			"categoryInfo": {
+				"name": "Sports Courts",
+				"description": "Sports and recreational court facilities",
+				"basePrice": 40.0,
+				"priceRange": {
+					"min": 20.0,
+					"max": 150.0
+				}
+			},
+			"requiredFields": ["name", "category", "organizationId", "metadata.sportType"],
+			"optionalFields": [
+				"description",
+				"code",
+				"price",
+				"rateTypeId",
+				"imageUrl",
+				"metadata.surfaceType",
+				"metadata.isIndoor",
+				"metadata.maxPlayers",
+				"metadata.equipmentProvided",
+				"metadata.openingHours"
+			],
+			"zodSchema": {
+				"metadata": {
+					"sportType": {
+						"type": "string",
+						"required": true,
+						"description": "Type of sport (e.g., 'Tennis', 'Basketball', 'Volleyball')"
+					},
+					"surfaceType": {
+						"type": "string",
+						"required": false,
+						"description": "Court surface type (e.g., 'Clay', 'Hardcourt', 'Grass')"
+					},
+					"isIndoor": {
+						"type": "boolean",
+						"required": false,
+						"default": false
+					},
+					"maxPlayers": {
+						"type": "number",
+						"min": 1,
+						"required": false,
+						"description": "Maximum number of players"
+					},
+					"equipmentProvided": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"required": false,
+						"default": [],
+						"description": "Equipment provided with the court"
+					},
+					"openingHours": {
+						"type": "string",
+						"required": false,
+						"description": "Court operating hours"
+					}
+				}
+			},
+			"validationRules": {
+				"metadata.maxPlayers": "Must be between 1 and 50",
+				"price": "Must be between 20 and 150 for sports courts"
+			},
+			"examples": [
+				{
+					"name": "Championship Tennis Court",
+					"description": "Professional-grade tennis court with premium clay surface",
+					"code": "TENNIS_CHAMP_001",
+					"category": "SPORTS_COURT",
+					"organizationId": "68412c97c0c093fb4f0b0a11",
+					"price": 80.0,
+					"metadata": {
+						"sportType": "Tennis",
+						"surfaceType": "Clay",
+						"isIndoor": false,
+						"maxPlayers": 4,
+						"equipmentProvided": ["Net", "Court Lines", "Ball Storage", "Scoreboard"],
+						"openingHours": "6:00 AM - 10:00 PM"
+					}
+				},
+				{
+					"name": "Indoor Basketball Court",
+					"description": "Full-size indoor basketball court with professional flooring",
+					"code": "BBALL_INDOOR_001",
+					"category": "SPORTS_COURT",
+					"organizationId": "68412c97c0c093fb4f0b0a11",
+					"price": 60.0,
+					"metadata": {
+						"sportType": "Basketball",
+						"surfaceType": "Hardwood",
+						"isIndoor": true,
+						"maxPlayers": 10,
+						"equipmentProvided": ["Hoops", "Basketballs", "Scoreboard", "Sound System"],
+						"openingHours": "6:00 AM - 11:00 PM"
+					}
+				}
+			]
+		},
+		"CONFERENCE_ROOM": {
+			"categoryInfo": {
+				"name": "Conference & Meeting Rooms",
+				"description": "Business meeting and conference facilities",
+				"basePrice": 75.0,
+				"priceRange": {
+					"min": 30.0,
+					"max": 300.0
+				}
+			},
+			"requiredFields": ["name", "category", "organizationId", "metadata.seatingCapacity"],
+			"optionalFields": [
+				"description",
+				"code",
+				"price",
+				"rateTypeId",
+				"imageUrl",
+				"metadata.hasProjector",
+				"metadata.hasWhiteboard",
+				"metadata.hasVideoConferencing",
+				"metadata.hasAudioSystem",
+				"metadata.layout",
+				"metadata.equipment"
+			],
+			"zodSchema": {
+				"metadata": {
+					"seatingCapacity": {
+						"type": "number",
+						"min": 1,
+						"required": true,
+						"description": "Number of seats in the room"
+					},
+					"hasProjector": {
+						"type": "boolean",
+						"required": false,
+						"default": false
+					},
+					"hasWhiteboard": {
+						"type": "boolean",
+						"required": false,
+						"default": false
+					},
+					"hasVideoConferencing": {
+						"type": "boolean",
+						"required": false,
+						"default": false
+					},
+					"hasAudioSystem": {
+						"type": "boolean",
+						"required": false,
+						"default": false
+					},
+					"layout": {
+						"type": "string",
+						"required": false,
+						"description": "Room layout (e.g., 'Theater', 'Classroom', 'U-Shape', 'Boardroom')"
+					},
+					"equipment": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"required": false,
+						"default": [],
+						"description": "Additional equipment available"
+					}
+				}
+			},
+			"validationRules": {
+				"metadata.seatingCapacity": "Must be between 1 and 500",
+				"price": "Must be between 30 and 300 for conference rooms"
+			},
+			"examples": [
+				{
+					"name": "Executive Boardroom",
+					"description": "Premium boardroom for executive meetings",
+					"code": "CONF_EXEC_001",
+					"category": "CONFERENCE_ROOM",
+					"organizationId": "68412c97c0c093fb4f0b0a11",
+					"price": 150.0,
+					"metadata": {
+						"seatingCapacity": 12,
+						"hasProjector": true,
+						"hasWhiteboard": true,
+						"hasVideoConferencing": true,
+						"hasAudioSystem": true,
+						"layout": "Boardroom",
+						"equipment": [
+							"Smart TV",
+							"Conference Phone",
+							"Wireless Presentation System"
+						]
+					}
+				},
+				{
+					"name": "Training Room A",
+					"description": "Spacious training room with modern amenities",
+					"code": "CONF_TRAIN_001",
+					"category": "CONFERENCE_ROOM",
+					"organizationId": "68412c97c0c093fb4f0b0a11",
+					"price": 75.0,
+					"metadata": {
+						"seatingCapacity": 30,
+						"hasProjector": true,
+						"hasWhiteboard": true,
+						"hasVideoConferencing": false,
+						"hasAudioSystem": true,
+						"layout": "Classroom",
+						"equipment": ["Flip Charts", "Markers", "Laptop"]
+					}
+				}
+			]
+		},
+		"PARKING": {
+			"categoryInfo": {
+				"name": "Parking Facilities",
+				"description": "Vehicle parking spaces and garages",
+				"basePrice": 15.0,
+				"priceRange": {
+					"min": 5.0,
+					"max": 50.0
+				}
+			},
+			"requiredFields": ["name", "category", "organizationId"],
+			"optionalFields": [
+				"description",
+				"code",
+				"price",
+				"rateTypeId",
+				"imageUrl",
+				"metadata.vehicleType",
+				"metadata.isUnderground",
+				"metadata.isCovered",
+				"metadata.hasElectricCharging",
+				"metadata.maxVehicleHeight",
+				"metadata.securityLevel"
+			],
+			"zodSchema": {
+				"metadata": {
+					"vehicleType": {
+						"type": "string",
+						"required": false,
+						"description": "Type of vehicle (e.g., 'Car', 'Motorcycle', 'Truck', 'RV')"
+					},
+					"isUnderground": {
+						"type": "boolean",
+						"required": false,
+						"default": false
+					},
+					"isCovered": {
+						"type": "boolean",
+						"required": false,
+						"default": false
+					},
+					"hasElectricCharging": {
+						"type": "boolean",
+						"required": false,
+						"default": false
+					},
+					"maxVehicleHeight": {
+						"type": "number",
+						"required": false,
+						"description": "Maximum vehicle height in meters"
+					},
+					"securityLevel": {
+						"type": "string",
+						"required": false,
+						"description": "Security level (e.g., 'Basic', 'Monitored', 'Gated', 'Valet')"
+					}
+				}
+			},
+			"validationRules": {
+				"metadata.maxVehicleHeight": "Must be between 1.5 and 5.0 meters",
+				"price": "Must be between 5 and 50 for parking"
+			},
+			"examples": [
+				{
+					"name": "Premium Valet Parking",
+					"description": "Full-service valet parking with car care",
+					"code": "PARK_VALET_001",
+					"category": "PARKING",
+					"organizationId": "68412c97c0c093fb4f0b0a11",
+					"price": 35.0,
+					"metadata": {
+						"vehicleType": "Car",
+						"isUnderground": true,
+						"isCovered": true,
+						"hasElectricCharging": true,
+						"maxVehicleHeight": 2.1,
+						"securityLevel": "Valet"
+					}
+				},
+				{
+					"name": "Self-Park Garage",
+					"description": "Secure self-parking garage",
+					"code": "PARK_SELF_001",
+					"category": "PARKING",
+					"organizationId": "68412c97c0c093fb4f0b0a11",
+					"price": 15.0,
+					"metadata": {
+						"vehicleType": "Car",
+						"isUnderground": false,
+						"isCovered": true,
+						"hasElectricCharging": false,
+						"maxVehicleHeight": 2.5,
+						"securityLevel": "Monitored"
+					}
+				}
+			]
+		},
+		"AMENITY_SPACE": {
+			"categoryInfo": {
+				"name": "Amenity Spaces",
+				"description": "Recreational and leisure amenity facilities",
+				"basePrice": 30.0,
+				"priceRange": {
+					"min": 10.0,
+					"max": 100.0
+				}
+			},
+			"requiredFields": ["name", "category", "organizationId", "metadata.amenityType"],
+			"optionalFields": [
+				"description",
+				"code",
+				"price",
+				"rateTypeId",
+				"imageUrl",
+				"metadata.capacity",
+				"metadata.requiresReservation",
+				"metadata.openingHours",
+				"metadata.ageRestriction",
+				"metadata.additionalFees"
+			],
+			"zodSchema": {
+				"metadata": {
+					"amenityType": {
+						"type": "string",
+						"required": true,
+						"description": "Type of amenity (e.g., 'Pool', 'Spa', 'Library', 'Garden', 'Game Room')"
+					},
+					"capacity": {
+						"type": "number",
+						"min": 1,
+						"required": false,
+						"description": "Maximum number of people"
+					},
+					"requiresReservation": {
+						"type": "boolean",
+						"required": false,
+						"default": false
+					},
+					"openingHours": {
+						"type": "string",
+						"required": false,
+						"description": "Operating hours"
+					},
+					"ageRestriction": {
+						"type": "string",
+						"required": false,
+						"description": "Age restrictions (e.g., 'Adults Only', 'All Ages', '18+')"
+					},
+					"additionalFees": {
+						"type": "number",
+						"min": 0,
+						"required": false,
+						"description": "Additional fees beyond base price"
+					}
+				}
+			},
+			"validationRules": {
+				"metadata.capacity": "Must be between 1 and 200",
+				"metadata.additionalFees": "Must be between 0 and 100",
+				"price": "Must be between 10 and 100 for amenity spaces"
+			},
+			"examples": [
+				{
+					"name": "Infinity Pool",
+					"description": "Stunning infinity pool with panoramic views",
+					"code": "AMEN_POOL_001",
+					"category": "AMENITY_SPACE",
+					"organizationId": "68412c97c0c093fb4f0b0a11",
+					"price": 45.0,
+					"metadata": {
+						"amenityType": "Pool",
+						"capacity": 50,
+						"requiresReservation": false,
+						"openingHours": "6:00 AM - 10:00 PM",
+						"ageRestriction": "All Ages",
+						"additionalFees": 0
+					}
+				},
+				{
+					"name": "Luxury Spa",
+					"description": "Full-service spa with massage and wellness treatments",
+					"code": "AMEN_SPA_001",
+					"category": "AMENITY_SPACE",
+					"organizationId": "68412c97c0c093fb4f0b0a11",
+					"price": 85.0,
+					"metadata": {
+						"amenityType": "Spa",
+						"capacity": 20,
+						"requiresReservation": true,
+						"openingHours": "8:00 AM - 8:00 PM",
+						"ageRestriction": "Adults Only",
+						"additionalFees": 25.0
+					}
+				}
+			]
+		},
+		"OTHER": {
+			"categoryInfo": {
+				"name": "Other Facilities",
+				"description": "Miscellaneous and specialized facilities",
+				"basePrice": 25.0,
+				"priceRange": {
+					"min": 10.0,
+					"max": 200.0
+				}
+			},
+			"requiredFields": ["name", "category", "organizationId", "metadata.customType"],
+			"optionalFields": [
+				"description",
+				"code",
+				"price",
+				"rateTypeId",
+				"imageUrl",
+				"metadata.description",
+				"metadata.features",
+				"metadata.requirements",
+				"metadata.capacity",
+				"metadata.openingHours"
+			],
+			"zodSchema": {
+				"metadata": {
+					"customType": {
+						"type": "string",
+						"required": true,
+						"description": "Custom facility type description"
+					},
+					"description": {
+						"type": "string",
+						"required": false,
+						"description": "Detailed description of the facility"
+					},
+					"features": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"required": false,
+						"default": [],
+						"description": "List of facility features"
+					},
+					"requirements": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"required": false,
+						"default": [],
+						"description": "Requirements or restrictions"
+					},
+					"capacity": {
+						"type": "number",
+						"min": 1,
+						"required": false,
+						"description": "Maximum capacity"
+					},
+					"openingHours": {
+						"type": "string",
+						"required": false,
+						"description": "Operating hours"
+					}
+				}
+			},
+			"validationRules": {
+				"metadata.capacity": "Must be between 1 and 1000",
+				"price": "Must be between 10 and 200 for other facilities"
+			},
+			"examples": [
+				{
+					"name": "Event Hall",
+					"description": "Multi-purpose event and banquet hall",
+					"code": "OTHER_EVENT_001",
+					"category": "OTHER",
+					"organizationId": "68412c97c0c093fb4f0b0a11",
+					"price": 120.0,
+					"metadata": {
+						"customType": "Event Hall",
+						"description": "Large versatile space for events, weddings, and conferences",
+						"features": [
+							"Stage",
+							"Sound System",
+							"Lighting",
+							"Catering Kitchen",
+							"Dance Floor"
+						],
+						"requirements": ["Event Insurance", "Security Deposit"],
+						"capacity": 200,
+						"openingHours": "24/7 with reservation"
+					}
+				},
+				{
+					"name": "Art Studio",
+					"description": "Creative workspace for artists and workshops",
+					"code": "OTHER_ART_001",
+					"category": "OTHER",
+					"organizationId": "68412c97c0c093fb4f0b0a11",
+					"price": 35.0,
+					"metadata": {
+						"customType": "Art Studio",
+						"description": "Well-lit art studio with professional equipment",
+						"features": ["Easels", "Art Supplies", "Natural Light", "Sinks", "Storage"],
+						"requirements": ["Art Experience Recommended"],
+						"capacity": 15,
+						"openingHours": "9:00 AM - 6:00 PM"
+					}
+				}
+			]
+		}
+	},
+	"helperFunctions": {
+		"validation": {
+			"validateMetadataForCategory": {
+				"description": "Validates metadata against the specific category requirements",
+				"parameters": ["category", "metadata"],
+				"returns": "ValidationResult",
+				"example": "validateMetadataForCategory('HOTEL', hotelMetadata)"
+			},
+			"isValidPriceRange": {
+				"description": "Checks if price falls within category price range",
+				"parameters": ["category", "price"],
+				"returns": "boolean",
+				"example": "isValidPriceRange('HOTEL', 299.99)"
+			},
+			"validateRequiredFields": {
+				"description": "Ensures all required fields are present",
+				"parameters": ["category", "facilityTypeData"],
+				"returns": "ValidationResult",
+				"example": "validateRequiredFields('RESTAURANT', restaurantData)"
+			}
+		},
+		"transformation": {
+			"preprocessFacilityTypeData": {
+				"description": "Preprocesses form data and converts types",
+				"parameters": ["rawData"],
+				"returns": "ProcessedData",
+				"example": "preprocessFacilityTypeData(formData)"
+			},
+			"buildCategorySpecificMetadata": {
+				"description": "Builds metadata object based on category",
+				"parameters": ["category", "inputData"],
+				"returns": "CategoryMetadata",
+				"example": "buildCategorySpecificMetadata('GYM', gymData)"
+			},
+			"extractLegacyFields": {
+				"description": "Extracts legacy fields from metadata for backward compatibility",
+				"parameters": ["metadata"],
+				"returns": "LegacyFields",
+				"example": "extractLegacyFields(hotelMetadata)"
+			}
+		},
+		"typeGuards": {
+			"isHotelMetadata": {
+				"description": "Type guard for hotel metadata",
+				"parameters": ["category", "metadata"],
+				"returns": "boolean",
+				"example": "isHotelMetadata('HOTEL', metadata)"
+			},
+			"isGymMetadata": {
+				"description": "Type guard for gym metadata",
+				"parameters": ["category", "metadata"],
+				"returns": "boolean",
+				"example": "isGymMetadata('GYM', metadata)"
+			},
+			"isRestaurantMetadata": {
+				"description": "Type guard for restaurant metadata",
+				"parameters": ["category", "metadata"],
+				"returns": "boolean",
+				"example": "isRestaurantMetadata('RESTAURANT', metadata)"
+			},
+			"isSportsCourtMetadata": {
+				"description": "Type guard for sports court metadata",
+				"parameters": ["category", "metadata"],
+				"returns": "boolean",
+				"example": "isSportsCourtMetadata('SPORTS_COURT', metadata)"
+			},
+			"isConferenceRoomMetadata": {
+				"description": "Type guard for conference room metadata",
+				"parameters": ["category", "metadata"],
+				"returns": "boolean",
+				"example": "isConferenceRoomMetadata('CONFERENCE_ROOM', metadata)"
+			},
+			"isParkingMetadata": {
+				"description": "Type guard for parking metadata",
+				"parameters": ["category", "metadata"],
+				"returns": "boolean",
+				"example": "isParkingMetadata('PARKING', metadata)"
+			},
+			"isAmenitySpaceMetadata": {
+				"description": "Type guard for amenity space metadata",
+				"parameters": ["category", "metadata"],
+				"returns": "boolean",
+				"example": "isAmenitySpaceMetadata('AMENITY_SPACE', metadata)"
+			},
+			"isOtherMetadata": {
+				"description": "Type guard for other metadata",
+				"parameters": ["category", "metadata"],
+				"returns": "boolean",
+				"example": "isOtherMetadata('OTHER', metadata)"
+			}
+		}
+	},
+	"usage": {
+		"createFacilityType": {
+			"description": "Steps to create a new facility type",
+			"steps": [
+				"1. Choose appropriate category from available options",
+				"2. Use the category's zodSchema to validate input data",
+				"3. Ensure all required fields are provided",
+				"4. Validate metadata using category-specific schema",
+				"5. Check price falls within category range",
+				"6. Use helper functions for validation and preprocessing",
+				"7. Save facility type with validated data"
+			]
+		},
+		"validateFacilityType": {
+			"description": "How to validate a facility type",
+			"steps": [
+				"1. Extract category from input data",
+				"2. Get category-specific schema and rules",
+				"3. Run Zod validation on the data structure",
+				"4. Use type guards to validate metadata",
+				"5. Check business rules and constraints",
+				"6. Return validation result with errors if any"
+			]
+		},
+		"updateFacilityType": {
+			"description": "How to update an existing facility type",
+			"steps": [
+				"1. Retrieve existing facility type data",
+				"2. Merge new data with existing data",
+				"3. Validate the merged data against category schema",
+				"4. Ensure category hasn't changed or handle migration",
+				"5. Update with validated data"
+			]
+		}
+	}
+}

@@ -47,10 +47,12 @@ model Organization {
   description       String
   code              String
   branding          Branding?
+  integrations      IntegrationConfig[]
   isDeleted         Boolean             @default(false)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
   users             User[]
+  apps              PurchasedApp[]
 
   @@index([code], name: "idx_organization_code")
   @@index([name], name: "idx_organization_name")

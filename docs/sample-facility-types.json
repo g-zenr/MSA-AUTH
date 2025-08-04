@@ -1,0 +1,325 @@
+{
+	"facilityTypeSamples": {
+		"hotel": {
+			"name": "Deluxe Ocean Suite",
+			"description": "Luxurious suite with panoramic ocean views and premium amenities",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "299.99",
+			"path": "hotel/deluxe-suite",
+			"code": "HOTEL001",
+			"category": "HOTEL",
+			"details": {
+				"bedType": "KING_BED",
+				"bedCount": 1,
+				"maxOccupancy": 2,
+				"amenities": ["ROOM_SERVICE", "CONCIERGE_SERVICE", "SPA_SERVICES", "VALET_PARKING"],
+				"roomFeatures": [
+					"WIFI",
+					"TELEVISION",
+					"MINIBAR",
+					"SAFE",
+					"BALCONY",
+					"JACUZZI",
+					"OCEAN_VIEW",
+					"PRIVATE_BATHROOM",
+					"AIR_CONDITIONING"
+				]
+			}
+		},
+		"gym": {
+			"name": "Premium Fitness Center",
+			"description": "State-of-the-art fitness facility with modern equipment and personal training",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "45.00",
+			"path": "fitness/premium-gym",
+			"code": "GYM001",
+			"category": "GYM",
+			"details": {
+				"equipment": [
+					"Treadmills",
+					"Elliptical Machines",
+					"Weight Machines",
+					"Free Weights",
+					"Rowing Machines",
+					"Stationary Bikes"
+				],
+				"hasTrainer": true,
+				"openingHours": "5:00 AM - 11:00 PM",
+				"capacity": 50,
+				"specialtyArea": "Cardio and Strength Training"
+			}
+		},
+		"restaurant": {
+			"name": "Mediterranean Bistro",
+			"description": "Authentic Mediterranean cuisine with fresh ingredients and ocean views",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "75.00",
+			"path": "dining/mediterranean-bistro",
+			"code": "REST001",
+			"category": "RESTAURANT",
+			"details": {
+				"cuisineType": "Mediterranean",
+				"seatingCapacity": 80,
+				"hasDelivery": false,
+				"hasTakeout": true,
+				"openingHours": "11:00 AM - 10:00 PM",
+				"menuUrl": "https://example.com/mediterranean-menu",
+				"avgMealPrice": 45.5
+			}
+		},
+		"sportsCourtTennis": {
+			"name": "Championship Tennis Court",
+			"description": "Professional-grade tennis court with premium clay surface",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "80.00",
+			"path": "sports/tennis-court-1",
+			"code": "TENNIS001",
+			"category": "SPORTS_COURT",
+			"details": {
+				"sportType": "Tennis",
+				"surfaceType": "Clay",
+				"isIndoor": false,
+				"maxPlayers": 4,
+				"equipmentProvided": ["Net", "Court Lines", "Ball Storage", "Scoreboard"],
+				"openingHours": "6:00 AM - 10:00 PM"
+			}
+		},
+		"sportsCourtBasketball": {
+			"name": "Indoor Basketball Court",
+			"description": "Full-size indoor basketball court with professional flooring",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "60.00",
+			"path": "sports/basketball-court",
+			"code": "BBALL001",
+			"category": "SPORTS_COURT",
+			"details": {
+				"sportType": "Basketball",
+				"surfaceType": "Hardwood",
+				"isIndoor": true,
+				"maxPlayers": 10,
+				"equipmentProvided": ["Hoops", "Basketballs", "Scoreboard", "Sound System"],
+				"openingHours": "6:00 AM - 11:00 PM"
+			}
+		},
+		"sportsCourtIndoor": {
+			"name": "INDOOR COURT",
+			"description": "Multi-purpose indoor court for various sports activities",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "299.99",
+			"path": "sports/indoor-court",
+			"code": "INDOOR001",
+			"category": "SPORTS_COURT",
+			"details": {
+				"sportType": "Multi-purpose",
+				"surfaceType": "Hardwood",
+				"isIndoor": true,
+				"maxPlayers": 20,
+				"equipmentProvided": ["Sound System", "Lighting", "Scoreboard"],
+				"openingHours": "6:00 AM - 11:00 PM"
+			}
+		},
+		"conferenceRoom": {
+			"name": "Executive Boardroom",
+			"description": "Premium conference room with advanced AV equipment for executive meetings",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "200.00",
+			"path": "conference/executive-boardroom",
+			"code": "CONF001",
+			"category": "CONFERENCE_ROOM",
+			"details": {
+				"seatingCapacity": 16,
+				"hasProjector": true,
+				"hasWhiteboard": true,
+				"hasVideoConferencing": true,
+				"hasAudioSystem": true,
+				"layout": "Boardroom",
+				"equipment": [
+					"4K Projector",
+					"Interactive Whiteboard",
+					"Video Conference System",
+					"Wireless Microphones",
+					"Smart TV",
+					"Laptop"
+				]
+			}
+		},
+		"conferenceRoomLarge": {
+			"name": "Grand Conference Hall",
+			"description": "Large conference hall suitable for seminars and presentations",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "350.00",
+			"path": "conference/grand-hall",
+			"code": "CONF002",
+			"category": "CONFERENCE_ROOM",
+			"details": {
+				"seatingCapacity": 100,
+				"hasProjector": true,
+				"hasWhiteboard": false,
+				"hasVideoConferencing": true,
+				"hasAudioSystem": true,
+				"layout": "Theater",
+				"equipment": [
+					"Projector",
+					"Stage",
+					"Podium",
+					"Wireless Microphones",
+					"Sound System",
+					"Lighting Control"
+				]
+			}
+		},
+		"parking": {
+			"name": "Covered Parking Garage",
+			"description": "Secure covered parking with electric vehicle charging stations",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "15.00",
+			"path": "parking/covered-garage",
+			"code": "PARK001",
+			"category": "PARKING",
+			"details": {
+				"vehicleType": "Car",
+				"isUnderground": false,
+				"isCovered": true,
+				"hasElectricCharging": true,
+				"maxVehicleHeight": 2.2,
+				"securityLevel": "Monitored"
+			}
+		},
+		"parkingValet": {
+			"name": "Valet Parking Service",
+			"description": "Premium valet parking service with covered drop-off",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "25.00",
+			"path": "parking/valet-service",
+			"code": "PARK002",
+			"category": "PARKING",
+			"details": {
+				"vehicleType": "Car",
+				"isUnderground": true,
+				"isCovered": true,
+				"hasElectricCharging": false,
+				"maxVehicleHeight": 2.0,
+				"securityLevel": "Gated"
+			}
+		},
+		"amenityPool": {
+			"name": "Infinity Pool & Spa",
+			"description": "Stunning infinity pool with panoramic views and spa services",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "30.00",
+			"path": "amenities/infinity-pool",
+			"code": "POOL001",
+			"category": "AMENITY_SPACE",
+			"details": {
+				"amenityType": "Swimming Pool",
+				"capacity": 40,
+				"requiresReservation": false,
+				"openingHours": "6:00 AM - 10:00 PM",
+				"ageRestriction": "All Ages",
+				"additionalFees": 0
+			}
+		},
+		"amenityLibrary": {
+			"name": "Reading Library & Study Space",
+			"description": "Quiet library with extensive book collection and study areas",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "0.00",
+			"path": "amenities/library",
+			"code": "LIB001",
+			"category": "AMENITY_SPACE",
+			"details": {
+				"amenityType": "Library",
+				"capacity": 25,
+				"requiresReservation": true,
+				"openingHours": "7:00 AM - 9:00 PM",
+				"ageRestriction": "Adults Only",
+				"additionalFees": 0
+			}
+		},
+		"other": {
+			"name": "Rooftop Garden Terrace",
+			"description": "Beautiful rooftop garden space for events and relaxation",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "100.00",
+			"path": "other/rooftop-garden",
+			"code": "OTHER001",
+			"category": "OTHER",
+			"details": {
+				"customType": "Garden Terrace",
+				"description": "Open-air rooftop space with garden elements",
+				"features": [
+					"Garden Views",
+					"Outdoor Seating",
+					"Weather Protection",
+					"Event Setup"
+				],
+				"requirements": ["Weather Dependent", "Advance Booking Required"],
+				"capacity": 30,
+				"openingHours": "8:00 AM - 8:00 PM"
+			}
+		}
+	},
+	"postmanFormDataExamples": {
+		"hotelSuite": {
+			"name": "Deluxe Ocean Suite",
+			"description": "Luxurious suite with panoramic ocean views and premium amenities",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "299.99",
+			"path": "hotel/deluxe-suite",
+			"code": "HOTEL001",
+			"category": "HOTEL",
+			"details": "{\"bedType\": \"KING_BED\", \"bedCount\": 1, \"maxOccupancy\": 2, \"amenities\": [\"ROOM_SERVICE\", \"CONCIERGE_SERVICE\", \"SPA_SERVICES\", \"VALET_PARKING\"], \"roomFeatures\": [\"WIFI\", \"TELEVISION\", \"MINIBAR\", \"SAFE\", \"BALCONY\", \"JACUZZI\", \"OCEAN_VIEW\", \"PRIVATE_BATHROOM\", \"AIR_CONDITIONING\"]}"
+		},
+		"gym": {
+			"name": "Premium Fitness Center",
+			"description": "State-of-the-art fitness facility with modern equipment and personal training",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "45.00",
+			"path": "fitness/premium-gym",
+			"code": "GYM001",
+			"category": "GYM",
+			"details": "{\"equipment\": [\"Treadmills\", \"Elliptical Machines\", \"Weight Machines\", \"Free Weights\", \"Rowing Machines\", \"Stationary Bikes\"], \"hasTrainer\": true, \"openingHours\": \"5:00 AM - 11:00 PM\", \"capacity\": 50, \"specialtyArea\": \"Cardio and Strength Training\"}"
+		},
+		"restaurant": {
+			"name": "Mediterranean Bistro",
+			"description": "Authentic Mediterranean cuisine with fresh ingredients and ocean views",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "75.00",
+			"path": "dining/mediterranean-bistro",
+			"code": "REST001",
+			"category": "RESTAURANT",
+			"details": "{\"cuisineType\": \"Mediterranean\", \"seatingCapacity\": 80, \"hasDelivery\": false, \"hasTakeout\": true, \"openingHours\": \"11:00 AM - 10:00 PM\", \"menuUrl\": \"https://example.com/mediterranean-menu\", \"avgMealPrice\": 45.50}"
+		},
+		"conferenceRoom": {
+			"name": "Executive Boardroom",
+			"description": "Premium conference room with advanced AV equipment for executive meetings",
+			"organizationId": "68412c97c0c093fb4f0b0a11",
+			"price": "200.00",
+			"path": "conference/executive-boardroom",
+			"code": "CONF001",
+			"category": "CONFERENCE_ROOM",
+			"details": "{\"seatingCapacity\": 16, \"hasProjector\": true, \"hasWhiteboard\": true, \"hasVideoConferencing\": true, \"hasAudioSystem\": true, \"layout\": \"Boardroom\", \"equipment\": [\"4K Projector\", \"Interactive Whiteboard\", \"Video Conference System\", \"Wireless Microphones\", \"Smart TV\", \"Laptop\"]}"
+		}
+	},
+	"usage": {
+		"description": "This file contains sample facility types for all categories. Use the 'facilityTypeSamples' section for reference and the 'postmanFormDataExamples' section for direct copy-paste into Postman form-data fields.",
+		"categories": [
+			"HOTEL - Hotel rooms and suites",
+			"GYM - Fitness facilities and gyms",
+			"RESTAURANT - Dining establishments",
+			"SPORTS_COURT - Tennis, basketball, and other sports courts",
+			"CONFERENCE_ROOM - Meeting and conference spaces",
+			"PARKING - Parking facilities and services",
+			"AMENITY_SPACE - Pools, libraries, and recreational spaces",
+			"OTHER - Custom facility types"
+		],
+		"postmanInstructions": [
+			"1. Set request method to POST",
+			"2. Set URL to {{base_url}}/api/facilityType",
+			"3. Set body type to 'form-data'",
+			"4. Add each field from postmanFormDataExamples as separate form-data entries",
+			"5. For 'details' field, copy the JSON string exactly as shown",
+			"6. Optionally add image files using 'images' field"
+		]
+	}
+}

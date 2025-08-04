@@ -18,4 +18,7 @@ export const config = {
 		apiKey: process.env.CLOUDINARY_API_KEY,
 		apiSecret: process.env.CLOUDINARY_API_SECRET,
 	},
+	cardEncoder: {
+		apiUrl: process.env.CARD_ENCODER_API_URL || "http://localhost:8080",
+	},
 };

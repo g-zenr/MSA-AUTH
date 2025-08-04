@@ -5,7 +5,7 @@ services:
             context: .
             dockerfile: Dockerfile
             target: runner
-        container_name: 1bis-api-app
+        container_name: lms-api-app
         ports:
             - "3000:3000"
         environment:
@@ -14,12 +14,6 @@ services:
             - DATABASE_URL=${DATABASE_URL}
             - JWT_SECRET=${JWT_SECRET}
             - CORS_ORIGINS=${CORS_ORIGINS}
-            - CORS_CREDENTIALS=${CORS_CREDENTIALS:-true}
-            - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
-            - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
-            - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
-            - BETTER_STACK_SOURCE_TOKEN=${BETTER_STACK_SOURCE_TOKEN}
-            - BETTER_STACK_HOST=${BETTER_STACK_HOST}
         restart: unless-stopped
         healthcheck:
             test:
@@ -27,14 +21,14 @@ services:
                     "CMD",
                     "node",
                     "-e",
-                    "require('http').get('http://localhost:3000/api/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })",
+                    "require('http').get('http://localhost:3000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })",
                 ]
             interval: 30s
             timeout: 10s
             retries: 3
             start_period: 40s
         networks:
-            - 1bis-network
+            - lms-network
         volumes:
             - ./logs:/app/logs
             - ./assets:/app/assets
@@ -53,7 +47,7 @@ services:
             context: .
             dockerfile: Dockerfile
             target: builder
-        container_name: 1bis-api-app-dev
+        container_name: lms-api-app-dev
         ports:
             - "3001:3000"
         environment:
@@ -62,12 +56,6 @@ services:
             - DATABASE_URL=${DATABASE_URL}
             - JWT_SECRET=${JWT_SECRET}
             - CORS_ORIGINS=${CORS_ORIGINS}
-            - CORS_CREDENTIALS=${CORS_CREDENTIALS:-true}
-            - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
-            - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
-            - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
-            - BETTER_STACK_SOURCE_TOKEN=${BETTER_STACK_SOURCE_TOKEN}
-            - BETTER_STACK_HOST=${BETTER_STACK_HOST}
         restart: unless-stopped
         volumes:
             - ./app:/app/app
@@ -77,32 +65,31 @@ services:
             - ./utils:/app/utils
             - ./zod:/app/zod
             - ./prisma:/app/prisma
-            - ./generated:/app/generated
+            - ./docs:/app/docs
             - ./assets:/app/assets
             - ./index.ts:/app/index.ts
             - ./logs:/app/logs
             - /app/node_modules
         command: ["npm", "run", "dev"]
         networks:
-            - 1bis-network
+            - lms-network
         profiles:
             - dev
 
-    # MongoDB service (if using local database)
+    # Database service (if using local database)
     database:
-        image: mongo:7.0
-        container_name: 1bis-database
+        image: postgres:15-alpine
+        container_name: lms-database
         environment:
-            - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME:-admin}
-            - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD:-password}
-            - MONGO_INITDB_DATABASE=${MONGO_DATABASE:-1bis_db}
+            - POSTGRES_DB=${POSTGRES_DB:-lms_db}
+            - POSTGRES_USER=${POSTGRES_USER:-lms_user}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-lms_password}
         ports:
-            - "27017:27017"
+            - "5432:5432"
         volumes:
-            - mongodb_data:/data/db
-            - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+            - postgres_data:/var/lib/postgresql/data
         networks:
-            - 1bis-network
+            - lms-network
         profiles:
             - dev
             - local-db
@@ -113,14 +100,14 @@ services:
             context: .
             dockerfile: Dockerfile
             target: builder
-        container_name: 1bis-prisma-studio
+        container_name: lms-prisma-studio
         ports:
             - "5555:5555"
         environment:
             - DATABASE_URL=${DATABASE_URL}
         command: ["npx", "prisma", "studio", "--hostname", "0.0.0.0"]
         networks:
-            - 1bis-network
+            - lms-network
         profiles:
             - dev
             - prisma
@@ -128,7 +115,7 @@ services:
     # Nginx reverse proxy for production
     nginx:
         image: nginx:alpine
-        container_name: 1bis-nginx
+        container_name: lms-nginx
         ports:
             - "80:80"
             - "443:443"
@@ -136,19 +123,18 @@ services:
             - ./nginx.conf:/etc/nginx/nginx.conf:ro
             - ./ssl:/etc/nginx/ssl:ro
         depends_on:
-            app:
-                condition: service_healthy
+            - app
         networks:
-            - 1bis-network
+            - lms-network
         profiles:
             - production
 
 networks:
-    1bis-network:
+    lms-network:
         driver: bridge
 
 volumes:
-    mongodb_data:
+    postgres_data:
         driver: local
     logs:
         driver: local
