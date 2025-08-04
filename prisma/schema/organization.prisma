@@ -1,0 +1,60 @@
+type Colors {
+  primary   String?
+  secondary String?
+  accent    String?
+  success   String?
+  warning   String?
+  danger    String?
+  info      String?
+  light     String?
+  dark      String?
+  neutral   String?
+}
+
+type Branding {
+  logo       String?
+  background String?
+  font       String?
+  colors     Colors?
+}
+
+type PurchasedModule {
+  moduleId         String? // Reference to the original module if needed
+  purchaseDate     DateTime  @default(now())
+  licenseStartDate DateTime  @default(now())
+  licenseEndDate   DateTime?
+  isActive         Boolean   @default(true)
+}
+
+type PurchasedApp {
+  appId            String? // Reference to the original app if needed
+  modules          PurchasedModule[]
+  purchaseDate     DateTime          @default(now())
+  licenseStartDate DateTime          @default(now())
+  licenseEndDate   DateTime?
+  isActive         Boolean           @default(true)
+}
+
+type IntegrationConfig {
+  integrationId String
+  configuration Json
+  isActive      Boolean @default(true)
+}
+
+model Organization {
+  id                String              @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  description       String
+  code              String
+  branding          Branding?
+  isDeleted         Boolean             @default(false)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  users             User[]
+
+  @@index([code], name: "idx_organization_code")
+  @@index([name], name: "idx_organization_name")
+  @@index([isDeleted], name: "idx_organization_deleted")
+  @@index([createdAt], name: "idx_organization_created_at")
+  @@index([code, isDeleted], name: "idx_organization_code_deleted")
+}

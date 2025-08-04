@@ -1,0 +1,54 @@
+{
+	"email": "john.doe@example.com",
+	"password": "password123",
+	"userName": "johndoe",
+	"role": "USER",
+	"subRole": "GUEST",
+	"organizationId": "clx......",
+	"person": [
+		[
+			{
+				"personalInfo": {
+					"firstName": "John",
+					"lastName": "Doe",
+					"prefix": "Mr.",
+					"middleName": "Mid",
+					"dateOfBirth": "1990-01-01T00:00:00.000Z",
+					"placeOfBirth": "City, Country",
+					"age": 34,
+					"nationality": "American",
+					"gender": "MALE",
+					"maritalStatus": "SINGLE",
+					"religion": "Christianity",
+					"bloodType": "O+",
+					"height": 180,
+					"weight": 75
+				}
+			},
+			{
+				"contactInfo": {
+					"primaryEmail": "john.doe.primary@example.com",
+					"secondaryEmail": "john.doe.secondary@example.com",
+					"primaryPhoneNumber": "123-456-7890",
+					"secondaryPhoneNumber": "098-765-4321",
+					"address": {
+						"street": "123 Main St",
+						"city": "Anytown",
+						"state": "CA",
+						"postalCode": "12345",
+						"country": "USA"
+					}
+				}
+			},
+			{
+				"identification": {
+					"type": "PASSPORT",
+					"number": "A1B2C3D4",
+					"issueDate": "2020-01-01T00:00:00.000Z",
+					"expiryDate": "2030-01-01T00:00:00.000Z",
+					"issuingCountry": "USA"
+				}
+			}
+		]
+	]
+}
