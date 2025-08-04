@@ -15,7 +15,7 @@
 		"export-docs": "ts-node scripts/export-openapi.ts",
 		"prisma-docs": "npx prisma studio",
 		"prisma-migrate": "npx prisma migrate dev",
-		"prisma-generate": "node scripts/combine-schemas.js && npx prisma generate --schema=prisma/combined-schema.prisma",
+		"prisma-generate": "node scripts/regenerate-schema.js",
 		"prisma-format": "npx prisma format",
 		"prisma-seed": "npx prisma db seed",
 		"prisma-reset": "npx prisma migrate reset --force",
