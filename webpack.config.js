@@ -1,6 +1,7 @@
 const path = require("path");
 
 module.exports = {
+	mode: "production",
 	entry: "./index.ts",
 	target: "node",
 	externals: [

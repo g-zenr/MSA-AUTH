@@ -1,163 +1,174 @@
-# Docker Setup Guide for LMS API
+# Docker Setup Guide
 
-This guide explains how to use the Docker configuration for the LMS API project.
+This guide explains how to set up and run the 1BIS API using Docker.
 
-## Files Created
+## Prerequisites
 
-1. **Dockerfile** - Multi-stage Docker build for production and development
-2. **docker-compose.yml** - Orchestration for all services
-3. **nginx.conf** - Reverse proxy configuration
-4. **.dockerignore** - Optimizes build context
+- Docker and Docker Compose installed
+- Environment variables configured
 
 ## Environment Variables
 
 Create a `.env` file in the root directory with the following variables:
 
-```env
-# Database Configuration
-DATABASE_URL="postgresql://lms_user:lms_password@localhost:5432/lms_db"
-
-# JWT Configuration
-JWT_SECRET="your-super-secret-jwt-key-here"
-
-# CORS Configuration
-CORS_ORIGINS="http://localhost:3000,http://localhost:3001"
-
+```bash
 # Application Configuration
-NODE_ENV="development"
+NODE_ENV=production
 PORT=3000
 
-# Database Configuration (for local Docker setup)
-POSTGRES_DB="lms_db"
-POSTGRES_USER="lms_user"
-POSTGRES_PASSWORD="lms_password"
+# Database Configuration
+DATABASE_URL=mongodb://admin:password@localhost:27017/1bis_db?authSource=admin
 
-# Cloudinary Configuration (if using)
-CLOUDINARY_CLOUD_NAME="your-cloud-name"
-CLOUDINARY_API_KEY="your-api-key"
-CLOUDINARY_API_SECRET="your-api-secret"
+# JWT Configuration
+JWT_SECRET=your-super-secret-jwt-key-here
 
-# TTLock Configuration (if using)
-TTLOCK_CLIENT_ID="your-ttlock-client-id"
-TTLOCK_CLIENT_SECRET="your-ttlock-client-secret"
-TTLOCK_SERVER_URL="https://euapi.ttlock.com"
+# CORS Configuration
+CORS_ORIGINS=http://localhost:3000,http://localhost:3001
+CORS_CREDENTIALS=true
 
-# Logging Configuration
-LOG_LEVEL="info"
+# Cloudinary Configuration
+CLOUDINARY_CLOUD_NAME=your-cloudinary-cloud-name
+CLOUDINARY_API_KEY=your-cloudinary-api-key
+CLOUDINARY_API_SECRET=your-cloudinary-api-secret
+
+# Card Encoder API
+=http://localhost:8080
+
+# Better Stack Logging
+BETTER_STACK_SOURCE_TOKEN=your-better-stack-source-token
+BETTER_STACK_HOST=your-better-stack-host
+
+# MongoDB Configuration (for local development)
+MONGO_ROOT_USERNAME=admin
+MONGO_ROOT_PASSWORD=password
+MONGO_DATABASE=1bis_db
 ```
 
-## Usage Commands
+## Running the Application
 
-### Production Setup
+### Production Mode
 
 ```bash
-# Build and run production service
-docker-compose up app
+# Build and run production container
+docker-compose up --build
 
-# Build and run with nginx reverse proxy
-docker-compose --profile production up
+# Run in background
+docker-compose up -d --build
 ```
 
-### Development Setup
+### Development Mode
 
 ```bash
-# Run development service with hot reload
-docker-compose --profile dev up app-dev
+# Run development container with hot reload
+docker-compose --profile dev up --build
 
-# Run with local database
-docker-compose --profile dev --profile local-db up
+# Run in background
+docker-compose --profile dev up -d --build
+```
 
+### Local Database
+
+```bash
+# Run with local MongoDB
+docker-compose --profile dev --profile local-db up --build
+```
+
+### Prisma Studio
+
+```bash
 # Run Prisma Studio for database management
-docker-compose --profile prisma up prisma-studio
+docker-compose --profile dev --profile prisma up --build
 ```
 
-### Database Operations
+## Services
 
-```bash
-# Run database migrations
-docker-compose exec app npx prisma migrate deploy
+### Production Service (`app`)
 
-# Seed the database
-docker-compose exec app npx prisma db seed
+- **Port**: 3000
+- **Health Check**: `/api/health`
+- **Features**: Production optimized build, health monitoring
 
-# Reset database
-docker-compose exec app npx prisma migrate reset --force
-```
+### Development Service (`app-dev`)
 
-### Building Images
+- **Port**: 3001
+- **Features**: Hot reload, volume mounting for development
 
-```bash
-# Build production image
-docker build --target runner -t lms-api:prod .
+### Database Service (`database`)
 
-# Build development image
-docker build --target builder -t lms-api:dev .
-```
+- **Port**: 27017
+- **Features**: MongoDB 7.0 with initialization script
 
-## Service Profiles
+### Prisma Studio (`prisma-studio`)
 
-- **Default**: Production app only
-- **dev**: Development app with hot reload
-- **local-db**: Includes PostgreSQL database
-- **prisma**: Includes Prisma Studio
-- **production**: Includes nginx reverse proxy
+- **Port**: 5555
+- **Features**: Database management interface
+
+### Nginx (`nginx`)
+
+- **Ports**: 80, 443
+- **Features**: Reverse proxy for production
 
 ## Health Checks
 
-The application includes health checks that monitor:
+The application includes a health check endpoint at `/api/health` that returns:
 
-- Application availability on port 3000
-- Health endpoint response
-- Container resource usage
+- Status: "healthy"
+- Timestamp
+- Uptime
+- Environment
 
 ## Volumes
 
 - `./logs:/app/logs` - Application logs
 - `./assets:/app/assets` - Static assets
-- `postgres_data:/var/lib/postgresql/data` - Database persistence
+- `mongodb_data:/data/db` - MongoDB data persistence
 
-## Network
+## Networks
 
-All services run on the `lms-network` bridge network for secure communication.
-
-## Security Features
-
-- Non-root user execution
-- Resource limits and reservations
-- Health checks for monitoring
-- Secure environment variable handling
+All services run on the `1bis-network` bridge network for internal communication.
 
 ## Troubleshooting
 
-### Common Issues
-
-1. **Port conflicts**: Ensure ports 3000, 3001, 5432, 5555, 80, 443 are available
-2. **Permission issues**: Check file ownership for mounted volumes
-3. **Database connection**: Verify DATABASE_URL environment variable
-4. **Build failures**: Check .dockerignore and ensure all required files are present
-
-### Logs
+### Build Issues
 
 ```bash
-# View application logs
+# Clean build
+docker-compose down
+docker system prune -f
+docker-compose up --build
+```
+
+### Database Connection Issues
+
+```bash
+# Check MongoDB logs
+docker-compose logs database
+
+# Reset database
+docker-compose down -v
+docker-compose up --build
+```
+
+### Health Check Failures
+
+```bash
+# Check application logs
 docker-compose logs app
 
-# View development logs
-docker-compose logs app-dev
-
-# Follow logs in real-time
-docker-compose logs -f app
+# Test health endpoint manually
+curl http://localhost:3000/api/health
 ```
 
-### Cleanup
+## Performance
 
-```bash
-# Stop all services
-docker-compose down
+The production service includes resource limits:
 
-# Remove volumes
-docker-compose down -v
+- Memory: 1GB limit, 512MB reservation
+- CPU: 0.5 cores limit, 0.25 cores reservation
 
-# Remove images
-docker-compose down --rmi all
-```
+## Security
+
+- Non-root user (`nodeuser`) for running the application
+- Environment variables for sensitive configuration
+- Health checks for monitoring
+- Resource limits to prevent resource exhaustion

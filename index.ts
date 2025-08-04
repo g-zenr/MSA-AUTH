@@ -27,6 +27,17 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 	(req as any).io = io;
 	next();
 });
+
+// Health check endpoint
+app.get("/api/health", (req: Request, res: Response) => {
+	res.status(200).json({
+		status: "healthy",
+		timestamp: new Date().toISOString(),
+		uptime: process.uptime(),
+		environment: process.env.NODE_ENV || "development",
+	});
+});
+
 const auth = require("./app/auth")(prisma);
 const user = require("./app/user")(prisma);
 const person = require("./app/person")(prisma);
