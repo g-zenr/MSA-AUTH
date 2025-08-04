@@ -157,12 +157,6 @@ export const convertFormDataTypes = (data: any, options: ConversionOptions = {})
 };
 
 export const ConversionPresets = {
-	facility: {
-		stringFields: ["name", "type", "description", "organizationId", "facilityTypeId"],
-		booleanFields: [],
-		numericFields: [],
-		jsonFields: ["location", "metadata"],
-	},
 	organization: {
 		numericFields: [],
 		integerFields: [],

@@ -3,18 +3,6 @@ enum Role {
   viewer
   admin
   onebis_test
-  hms_user
-  hms_viewer
-  hms_admin
-  hms_frontdesk_user
-  hms_frontdesk_viewer
-  hms_frontdesk_admin
-  hms_reservation_user
-  hms_reservation_viewer
-  hms_reservation_admin
-  hms_dining_user
-  hms_dining_viewer
-  hms_dining_admin
   dms_user
   dms_viewer
   dms_admin

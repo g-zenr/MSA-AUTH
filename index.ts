@@ -3,10 +3,10 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import swaggerUi from "swagger-ui-express";
+
 import { PrismaClient } from "./generated/prisma";
 import { config } from "./config/config";
-import openApiSpecs from "./docs/openApiSpecs";
+
 import verifyToken from "./middleware/verifyToken";
 import { connectDb } from "./config/database";
 
@@ -41,11 +41,6 @@ app.use(
 		credentials: config.cors.credentials,
 	}),
 );
-
-// Set up routes that don't need authentication
-if (process.env.NODE_ENV !== "production") {
-	app.use(`${config.baseApiPath}/docs`, swaggerUi.serve, swaggerUi.setup(openApiSpecs()));
-}
 
 // Set up routes that don't need authentication
 app.use(config.baseApiPath, auth);

@@ -92,9 +92,7 @@ model Person {
   contactInfo    ContactInfo?
   identification Identification?
   metadata       Metadata?
-  // reservations   Reservation[]
-  users User[]
-  // transactions   Transaction[]
+  users          User[]
 
   @@index([organizationId], name: "idx_person_organization")
   @@index([metadata.isDeleted], name: "idx_person_deleted")
